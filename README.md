@@ -28,4 +28,5 @@ We have collected real UAV imagery to construct a representative real-world test
     * 114 tool utilization questions
     * 103 task planning questions
   
-  The dataset can be obtained from the following link: (https://huggingface.co/datasets/GuoMN/BEDI).
+  The dataset can be obtained from the following link: (https://huggingface.co/datasets/GuoMN/BEDI). At the same time, the evaluation code for the static image experiment results has also been uploaded in the `test` folder.
+
