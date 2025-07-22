@@ -1,0 +1,18 @@
+2025-07-22 14:03:01,679 - INFO - AirSim Controller: Connected to server
+2025-07-22 14:03:01,679 - INFO - AirSim Controller: Init pose set to <Pose> {   'orientation': <Quaternionr> {   'w_val': 1,
+    'x_val': 0,
+    'y_val': 0,
+    'z_val': 0},
+    'position': <Vector3r> {   'x_val': 500,
+    'y_val': 2100,
+    'z_val': -50}}
+2025-07-22 14:03:01,697 - INFO - Starting task helper...
+2025-07-22 14:03:01,698 - INFO - Connecting to WebSocket server...
+2025-07-22 14:03:01,713 - INFO - WebSocket server started on ws://127.0.0.1:38080
+2025-07-22 14:03:04,299 - INFO - Client connected: ('::1', 3373, 0, 0)
+2025-07-22 14:03:17,432 - INFO - Client connected: ('::1', 3427, 0, 0)
+2025-07-22 14:03:26,101 - INFO - Received message from ('::1', 3427, 0, 0): {"type":"task","content":"delivery_fly_to_port"}
+2025-07-22 14:03:28,139 - INFO - AirSim Controller: exec action reset with params {'position': [0, 0, -2], 'quaternion': None}
+2025-07-22 14:03:28,145 - ERROR - Failed to control AirSim: 500
+2025-07-22 14:03:28,146 - ERROR - Error in client ('::1', 3427, 0, 0): Failed to control AirSim: 500
+2025-07-22 14:03:33,152 - INFO - Client connected: ('::1', 3455, 0, 0)

@@ -1,0 +1,8 @@
+2025-07-22 14:01:55,286 - INFO - AirSim Controller: Connected to server
+2025-07-22 14:01:55,287 - INFO - AirSim Controller: Init pose set to <Pose> {   'orientation': <Quaternionr> {   'w_val': 1,
+    'x_val': 0,
+    'y_val': 0,
+    'z_val': 0},
+    'position': <Vector3r> {   'x_val': 500,
+    'y_val': 2100,
+    'z_val': -50}}

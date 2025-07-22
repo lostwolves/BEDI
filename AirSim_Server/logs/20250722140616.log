@@ -1,0 +1,168 @@
+2025-07-22 14:06:20,040 - INFO - AirSim Controller: Connected to server
+2025-07-22 14:06:20,041 - INFO - AirSim Controller: Init pose set to <Pose> {   'orientation': <Quaternionr> {   'w_val': 1,
+    'x_val': 0,
+    'y_val': 0,
+    'z_val': 0},
+    'position': <Vector3r> {   'x_val': 500,
+    'y_val': 2100,
+    'z_val': -50}}
+2025-07-22 14:06:20,049 - INFO - Starting task helper...
+2025-07-22 14:06:20,051 - INFO - Connecting to WebSocket server...
+2025-07-22 14:06:20,065 - INFO - WebSocket server started on ws://127.0.0.1:38080
+2025-07-22 14:06:20,263 - INFO - Client connected: ('::1', 4100, 0, 0)
+2025-07-22 14:06:25,031 - INFO - Client connected: ('::1', 4117, 0, 0)
+2025-07-22 14:06:25,876 - INFO - Client connected: ('::1', 4128, 0, 0)
+2025-07-22 14:06:29,948 - INFO - Received message from ('::1', 4128, 0, 0): {"type":"task","content":"delivery"}
+2025-07-22 14:06:31,986 - INFO - AirSim Controller: exec action set_pose with params {'position': [0, 0, -2], 'quaternion': None}
+2025-07-22 14:06:32,996 - INFO - Initialized task info for Delivery
+2025-07-22 14:06:32,996 - INFO - Task started: delivery
+2025-07-22 14:06:33,056 - INFO - Current step: 1
+2025-07-22 14:06:35,089 - INFO - AirSim Controller: exec action get_image with params {}
+2025-07-22 14:06:35,111 - INFO - Frame captured: cache\images\20250722140635.png
+2025-07-22 14:06:35,420 - INFO - FileServer: Request file: 20250722140635.png
+2025-07-22 14:06:35,679 - INFO - FileServer: Request file: 20250722140635.png
+2025-07-22 14:06:37,141 - INFO - AirSim Controller: exec action get_position_and_view with params {}
+2025-07-22 14:06:37,144 - INFO - Generated prompt: You are operating a drone, and this image is captured by the drone's forward-looking camera. Your overall mission objective is Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port. You should complete the task step by step as follows:
+1. Fly over Bruce Port.
+2. Search for a red cargo ship in the port.
+3. Fly directly above the red cargo ship.
+4. Land on the red cargo ship.
+
+The known information is as follows:  
+1. The current position of the drone is (0, 0, -1).  
+2. The approximate coordinates of Bruce Port are (-2400, 400).  Note: Bruce Harbour is an area, so even if it is slightly off by a few hundred metres, the drone could still be within range of the harbour!
+3. The goal of the previous action was none(currently the first step).  
+
+You can control the drone to perform the following actions:  
+1. Turn (left/right) 90 degrees:  
+   "action_name"="turn_left"/"turn_right", "params"=[] 
+2. Fly in a specific direction (left/right/forward/backward/up/down/upleft/upright/downleft/downright):  
+   "action_name"="move_left"/"move_right"/"move_forward"/"move_backward"/"move_up"/"move_down"/"move_upleft"/"move_upright"/"move_downleft"/"move_downright", "params"=[]
+3. Fly to specified coordinates:  
+   "action_name"="fly_to", "params"=["x":float, "y":float]
+4. Switch camera view (toggle between front view and downward view):  
+   "action_name"="switch_view", "params"=[]  
+5. Land:  
+   "action_name"="land", "params"=[]  
+
+Tips (Important!!!):  
+1. When executing the "Fly over Bruce Port" task, if the target destination is known and the distance is far (over 200m), it is recommended to use the "fly_to" action to quickly navigate to the specified coordinates.  
+2. For the "Search for the red cargo ship in the port" task:  
+   2.1 If the red cargo ship is not visible in the front view, try turning left and searching again.  
+   2.2 If the ship is still not found after rotating a full circle, consider ascending to search from a higher altitude and try again.
+3. For the "Fly directly above the red cargo ship" task:  
+   3.1 If the red cargo ship is still visible in the front view, the drone has NOT yet flown directly above it and needs to continue to approach the red cargo ship. 
+   3.2 If the red cargo ship is NOT visible in the front view, it indicates that the drone is likely close to the ship. In this case, switch to the downward view and continue the task.
+   ** Remember: do NOT switch the view if the ship is still visible in the front view!!!
+   3.3 In the downward view, if the center of the image shows a cargo ship loaded with containers (specifically indicated by the pixels within the red box corresponding to the target cargo ship, likely containers), the drone has reached the position directly above the ship and can attempt to land. Otherwise, continue flying toward the ship until it is centered in the image.  
+4. For the "Land on the red cargo ship" task:  
+   If the red cargo ship appears at the center of the image in the downward view, the drone has reached the position directly above the ship and can attempt to land.
+
+Instructions:  
+First, determine whether the previous action achieved its goal. If not, continue executing actions to achieve the previous goal. If the goal has been achieved, plan the next task and corresponding action.  
+
+Note:  
+Your response should be in JSON format and include the following information:  
+1. Whether the previous action achieved its goal ("last_goal_reached").  
+2. The current task goal (affected by whether the previous goal was completed).  
+3. The next action to take (if all steps are completed, the next action is "task_complete").  
+4. The parameters for the action.  
+5. The reasoning/analysis for selecting this action (keep it concise!).  
+
+Here is an example:  
+{
+    "last_goal_reached": true,
+    "current_goal": "Pick up the cup on the table",
+    "action_name": "xxx",
+    "params": {
+        "duration": 1.0
+    },
+    "analysis": "xxx"
+}
+
+2025-07-22 14:06:37,144 - INFO - Chatting with model: ollama__qwen2.5vl:7b
+2025-07-22 14:06:52,856 - INFO - Model response: {'last_goal_reached': False, 'current_goal': 'Fly over Bruce Port', 'action_name': 'move_forward', 'params': {'distance': 2400.0}, 'analysis': "The drone needs to fly over Bruce Port to reach the area where the red cargo ship is likely to be docked. The current position is (0, 0, -1), and the approximate coordinates of Bruce Port are (-2400, 400). The 'move_forward' action will help the drone move towards the port.", 'prompt': 'You are operating a drone, and this image is captured by the drone\'s forward-looking camera. Your overall mission objective is Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port. You should complete the task step by step as follows:\n1. Fly over Bruce Port.\n2. Search for a red cargo ship in the port.\n3. Fly directly above the red cargo ship.\n4. Land on the red cargo ship.\n\nThe known information is as follows:  \n1. The current position of the drone is (0, 0, -1).  \n2. The approximate coordinates of Bruce Port are (-2400, 400).  Note: Bruce Harbour is an area, so even if it is slightly off by a few hundred metres, the drone could still be within range of the harbour!\n3. The goal of the previous action was none(currently the first step).  \n\nYou can control the drone to perform the following actions:  \n1. Turn (left/right) 90 degrees:  \n   "action_name"="turn_left"/"turn_right", "params"=[] \n2. Fly in a specific direction (left/right/forward/backward/up/down/upleft/upright/downleft/downright):  \n   "action_name"="move_left"/"move_right"/"move_forward"/"move_backward"/"move_up"/"move_down"/"move_upleft"/"move_upright"/"move_downleft"/"move_downright", "params"=[]\n3. Fly to specified coordinates:  \n   "action_name"="fly_to", "params"=["x":float, "y":float]\n4. Switch camera view (toggle between front view and downward view):  \n   "action_name"="switch_view", "params"=[]  \n5. Land:  \n   "action_name"="land", "params"=[]  \n\nTips (Important!!!):  \n1. When executing the "Fly over Bruce Port" task, if the target destination is known and the distance is far (over 200m), it is recommended to use the "fly_to" action to quickly navigate to the specified coordinates.  \n2. For the "Search for the red cargo ship in the port" task:  \n   2.1 If the red cargo ship is not visible in the front view, try turning left and searching again.  \n   2.2 If the ship is still not found after rotating a full circle, consider ascending to search from a higher altitude and try again.\n3. For the "Fly directly above the red cargo ship" task:  \n   3.1 If the red cargo ship is still visible in the front view, the drone has NOT yet flown directly above it and needs to continue to approach the red cargo ship. \n   3.2 If the red cargo ship is NOT visible in the front view, it indicates that the drone is likely close to the ship. In this case, switch to the downward view and continue the task.\n   ** Remember: do NOT switch the view if the ship is still visible in the front view!!!\n   3.3 In the downward view, if the center of the image shows a cargo ship loaded with containers (specifically indicated by the pixels within the red box corresponding to the target cargo ship, likely containers), the drone has reached the position directly above the ship and can attempt to land. Otherwise, continue flying toward the ship until it is centered in the image.  \n4. For the "Land on the red cargo ship" task:  \n   If the red cargo ship appears at the center of the image in the downward view, the drone has reached the position directly above the ship and can attempt to land.\n\nInstructions:  \nFirst, determine whether the previous action achieved its goal. If not, continue executing actions to achieve the previous goal. If the goal has been achieved, plan the next task and corresponding action.  \n\nNote:  \nYour response should be in JSON format and include the following information:  \n1. Whether the previous action achieved its goal ("last_goal_reached").  \n2. The current task goal (affected by whether the previous goal was completed).  \n3. The next action to take (if all steps are completed, the next action is "task_complete").  \n4. The parameters for the action.  \n5. The reasoning/analysis for selecting this action (keep it concise!).  \n\nHere is an example:  \n{\n    "last_goal_reached": true,\n    "current_goal": "Pick up the cup on the table",\n    "action_name": "xxx",\n    "params": {\n        "duration": 1.0\n    },\n    "analysis": "xxx"\n}\n', 'frame': 'cache\\images\\20250722140635.png', 'agent': 'qwen2.5vl:7b', 'position': (0, 0, -1), 'view': 'forward-looking', 'task_name': 'DeliveryCargo', 'task_desc': 'Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port', 'cur_step': 1}
+2025-07-22 14:06:52,856 - INFO - Formatted response: 步数: 1
+当前位置: (0, 0, -1)
+当前视角: forward-looking
+动作命令: move_forward
+动作参数: {'distance': 2400.0}
+决策依据: The drone needs to fly over Bruce Port to reach the area where the red cargo ship is likely to be docked. The current position is (0, 0, -1), and the approximate coordinates of Bruce Port are (-2400, 400). The 'move_forward' action will help the drone move towards the port.
+
+2025-07-22 14:06:52,856 - INFO - Executing action: move_forward with params: {'distance': 2400.0}
+2025-07-22 14:06:54,907 - INFO - AirSim Controller: exec action move_forward with params {'distance': 2400.0}
+2025-07-22 14:07:03,938 - INFO - Current step: 2
+2025-07-22 14:07:05,948 - INFO - AirSim Controller: exec action get_image with params {}
+2025-07-22 14:07:05,978 - INFO - Frame captured: cache\images\20250722140705.png
+2025-07-22 14:07:05,983 - INFO - FileServer: Request file: 20250722140705.png
+2025-07-22 14:07:06,287 - INFO - FileServer: Request file: 20250722140705.png
+2025-07-22 14:07:08,036 - INFO - AirSim Controller: exec action get_position_and_view with params {}
+2025-07-22 14:07:08,038 - INFO - Generated prompt: You are operating a drone, and this image is captured by the drone's forward-looking camera. Your overall mission objective is Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port. You should complete the task step by step as follows:
+1. Fly over Bruce Port.
+2. Search for a red cargo ship in the port.
+3. Fly directly above the red cargo ship.
+4. Land on the red cargo ship.
+
+The known information is as follows:  
+1. The current position of the drone is (22, 0, -3).  
+2. The approximate coordinates of Bruce Port are (-2400, 400).  Note: Bruce Harbour is an area, so even if it is slightly off by a few hundred metres, the drone could still be within range of the harbour!
+3. The goal of the previous action was Fly over Bruce Port.  
+
+You can control the drone to perform the following actions:  
+1. Turn (left/right) 90 degrees:  
+   "action_name"="turn_left"/"turn_right", "params"=[] 
+2. Fly in a specific direction (left/right/forward/backward/up/down/upleft/upright/downleft/downright):  
+   "action_name"="move_left"/"move_right"/"move_forward"/"move_backward"/"move_up"/"move_down"/"move_upleft"/"move_upright"/"move_downleft"/"move_downright", "params"=[]
+3. Fly to specified coordinates:  
+   "action_name"="fly_to", "params"=["x":float, "y":float]
+4. Switch camera view (toggle between front view and downward view):  
+   "action_name"="switch_view", "params"=[]  
+5. Land:  
+   "action_name"="land", "params"=[]  
+
+Tips (Important!!!):  
+1. When executing the "Fly over Bruce Port" task, if the target destination is known and the distance is far (over 200m), it is recommended to use the "fly_to" action to quickly navigate to the specified coordinates.  
+2. For the "Search for the red cargo ship in the port" task:  
+   2.1 If the red cargo ship is not visible in the front view, try turning left and searching again.  
+   2.2 If the ship is still not found after rotating a full circle, consider ascending to search from a higher altitude and try again.
+3. For the "Fly directly above the red cargo ship" task:  
+   3.1 If the red cargo ship is still visible in the front view, the drone has NOT yet flown directly above it and needs to continue to approach the red cargo ship. 
+   3.2 If the red cargo ship is NOT visible in the front view, it indicates that the drone is likely close to the ship. In this case, switch to the downward view and continue the task.
+   ** Remember: do NOT switch the view if the ship is still visible in the front view!!!
+   3.3 In the downward view, if the center of the image shows a cargo ship loaded with containers (specifically indicated by the pixels within the red box corresponding to the target cargo ship, likely containers), the drone has reached the position directly above the ship and can attempt to land. Otherwise, continue flying toward the ship until it is centered in the image.  
+4. For the "Land on the red cargo ship" task:  
+   If the red cargo ship appears at the center of the image in the downward view, the drone has reached the position directly above the ship and can attempt to land.
+
+Instructions:  
+First, determine whether the previous action achieved its goal. If not, continue executing actions to achieve the previous goal. If the goal has been achieved, plan the next task and corresponding action.  
+
+Note:  
+Your response should be in JSON format and include the following information:  
+1. Whether the previous action achieved its goal ("last_goal_reached").  
+2. The current task goal (affected by whether the previous goal was completed).  
+3. The next action to take (if all steps are completed, the next action is "task_complete").  
+4. The parameters for the action.  
+5. The reasoning/analysis for selecting this action (keep it concise!).  
+
+Here is an example:  
+{
+    "last_goal_reached": true,
+    "current_goal": "Pick up the cup on the table",
+    "action_name": "xxx",
+    "params": {
+        "duration": 1.0
+    },
+    "analysis": "xxx"
+}
+
+2025-07-22 14:07:08,039 - INFO - Chatting with model: ollama__qwen2.5vl:7b
+2025-07-22 14:07:13,545 - INFO - Model response: {'last_goal_reached': False, 'current_goal': 'Search for a red cargo ship in the port', 'action_name': 'move_forward', 'params': {'distance': 100.0}, 'analysis': 'The drone needs to fly over Bruce Port to search for the red cargo ship. The current position is (22, 0, -3), and the approximate coordinates of Bruce Port are (-2400, 400). The drone should move forward to get closer to the port.', 'prompt': 'You are operating a drone, and this image is captured by the drone\'s forward-looking camera. Your overall mission objective is Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port. You should complete the task step by step as follows:\n1. Fly over Bruce Port.\n2. Search for a red cargo ship in the port.\n3. Fly directly above the red cargo ship.\n4. Land on the red cargo ship.\n\nThe known information is as follows:  \n1. The current position of the drone is (22, 0, -3).  \n2. The approximate coordinates of Bruce Port are (-2400, 400).  Note: Bruce Harbour is an area, so even if it is slightly off by a few hundred metres, the drone could still be within range of the harbour!\n3. The goal of the previous action was Fly over Bruce Port.  \n\nYou can control the drone to perform the following actions:  \n1. Turn (left/right) 90 degrees:  \n   "action_name"="turn_left"/"turn_right", "params"=[] \n2. Fly in a specific direction (left/right/forward/backward/up/down/upleft/upright/downleft/downright):  \n   "action_name"="move_left"/"move_right"/"move_forward"/"move_backward"/"move_up"/"move_down"/"move_upleft"/"move_upright"/"move_downleft"/"move_downright", "params"=[]\n3. Fly to specified coordinates:  \n   "action_name"="fly_to", "params"=["x":float, "y":float]\n4. Switch camera view (toggle between front view and downward view):  \n   "action_name"="switch_view", "params"=[]  \n5. Land:  \n   "action_name"="land", "params"=[]  \n\nTips (Important!!!):  \n1. When executing the "Fly over Bruce Port" task, if the target destination is known and the distance is far (over 200m), it is recommended to use the "fly_to" action to quickly navigate to the specified coordinates.  \n2. For the "Search for the red cargo ship in the port" task:  \n   2.1 If the red cargo ship is not visible in the front view, try turning left and searching again.  \n   2.2 If the ship is still not found after rotating a full circle, consider ascending to search from a higher altitude and try again.\n3. For the "Fly directly above the red cargo ship" task:  \n   3.1 If the red cargo ship is still visible in the front view, the drone has NOT yet flown directly above it and needs to continue to approach the red cargo ship. \n   3.2 If the red cargo ship is NOT visible in the front view, it indicates that the drone is likely close to the ship. In this case, switch to the downward view and continue the task.\n   ** Remember: do NOT switch the view if the ship is still visible in the front view!!!\n   3.3 In the downward view, if the center of the image shows a cargo ship loaded with containers (specifically indicated by the pixels within the red box corresponding to the target cargo ship, likely containers), the drone has reached the position directly above the ship and can attempt to land. Otherwise, continue flying toward the ship until it is centered in the image.  \n4. For the "Land on the red cargo ship" task:  \n   If the red cargo ship appears at the center of the image in the downward view, the drone has reached the position directly above the ship and can attempt to land.\n\nInstructions:  \nFirst, determine whether the previous action achieved its goal. If not, continue executing actions to achieve the previous goal. If the goal has been achieved, plan the next task and corresponding action.  \n\nNote:  \nYour response should be in JSON format and include the following information:  \n1. Whether the previous action achieved its goal ("last_goal_reached").  \n2. The current task goal (affected by whether the previous goal was completed).  \n3. The next action to take (if all steps are completed, the next action is "task_complete").  \n4. The parameters for the action.  \n5. The reasoning/analysis for selecting this action (keep it concise!).  \n\nHere is an example:  \n{\n    "last_goal_reached": true,\n    "current_goal": "Pick up the cup on the table",\n    "action_name": "xxx",\n    "params": {\n        "duration": 1.0\n    },\n    "analysis": "xxx"\n}\n', 'frame': 'cache\\images\\20250722140705.png', 'agent': 'qwen2.5vl:7b', 'position': (22, 0, -3), 'view': 'forward-looking', 'task_name': 'DeliveryCargo', 'task_desc': 'Controlling a drone to deliver cargo to a red cargo ship with many containers of goods docked in the Bruce Port', 'cur_step': 2}
+2025-07-22 14:07:13,546 - INFO - Formatted response: 步数: 2
+当前位置: (22, 0, -3)
+当前视角: forward-looking
+动作命令: move_forward
+动作参数: {'distance': 100.0}
+决策依据: The drone needs to fly over Bruce Port to search for the red cargo ship. The current position is (22, 0, -3), and the approximate coordinates of Bruce Port are (-2400, 400). The drone should move forward to get closer to the port.
+
+2025-07-22 14:07:13,546 - INFO - Executing action: move_forward with params: {'distance': 100.0}
+2025-07-22 14:07:15,591 - INFO - AirSim Controller: exec action move_forward with params {'distance': 100.0}

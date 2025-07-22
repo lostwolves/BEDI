@@ -1,0 +1,61 @@
+2025-07-22 14:05:19,443 - INFO - AirSim Controller: Connected to server
+2025-07-22 14:05:19,444 - INFO - AirSim Controller: Init pose set to <Pose> {   'orientation': <Quaternionr> {   'w_val': 1,
+    'x_val': 0,
+    'y_val': 0,
+    'z_val': 0},
+    'position': <Vector3r> {   'x_val': 500,
+    'y_val': 2100,
+    'z_val': -50}}
+2025-07-22 14:05:19,462 - INFO - Starting task helper...
+2025-07-22 14:05:19,465 - INFO - Connecting to WebSocket server...
+2025-07-22 14:05:19,478 - INFO - WebSocket server started on ws://127.0.0.1:38080
+2025-07-22 14:05:21,704 - INFO - Client connected: ('::1', 3857, 0, 0)
+2025-07-22 14:05:23,697 - INFO - Client connected: ('::1', 3860, 0, 0)
+2025-07-22 14:05:24,610 - INFO - Received message from ('::1', 3857, 0, 0): {"type":"task","content":"delivery_fly_to_port"}
+2025-07-22 14:05:26,642 - INFO - AirSim Controller: exec action set_pose with params {'position': [0, 0, -2], 'quaternion': None}
+2025-07-22 14:05:27,652 - INFO - Initialized task info for DeliveryFlyToPort
+2025-07-22 14:05:27,652 - INFO - Task started: delivery_fly_to_port
+2025-07-22 14:05:28,467 - INFO - Current step: 1
+2025-07-22 14:05:30,487 - INFO - AirSim Controller: exec action get_image with params {}
+2025-07-22 14:05:30,536 - INFO - Frame captured: cache\images\20250722140530.png
+2025-07-22 14:05:30,845 - INFO - FileServer: Request file: 20250722140530.png
+2025-07-22 14:05:31,106 - INFO - FileServer: Request file: 20250722140530.png
+2025-07-22 14:05:32,583 - INFO - AirSim Controller: exec action get_position_and_view with params {}
+2025-07-22 14:05:32,586 - INFO - Generated prompt: You are operating a drone, and this image is captured by the drone's forward-looking camera. Your overall mission objective is Controlling the drone to fly to Bruce Port.
+
+The known information is as follows:
+1. The current position of the drone is (0, 0, -1).
+2. The approximate coordinates of Bruce Port are (-2400, 400).
+
+You can control the drone to perform the following actions:
+1. Turn (left/right) 90 degrees:  
+   "action_name"="turn_left"/"turn_right", "params"=[] 
+2. Fly in a specific direction (left/right/forward/backward/up/down/upleft/upright/downleft/downright):  
+   "action_name"="move_left"/"move_right"/"move_forward"/"move_backward"/"move_up"/"move_down"/"move_upleft"/"move_upright"/"move_downleft"/"move_downright", "params"=[]
+3. Fly to specified coordinates:  
+   "action_name"="fly_to", "params"=["x":float, "y":float]
+4. Switch camera view (toggle between front view and downward view):  
+   "action_name"="switch_view", "params"=[]  
+5. Land:  
+   "action_name"="land", "params"=[]
+
+Tips (Important!!!):
+1. When the target destination is known and the distance is far (over 500m), it is recommended to use the "fly_to" action to quickly navigate to the specified coordinates.
+2. Note: Bruce Port is a large area, so even when the drone is less than 100 meters away from the target location, it may still be within the port!
+
+Note: Your response should be in JSON format and include the following information:
+1. The next action to take (if the task is completed, the next action should be "task_complete").
+2. The parameters for the action.
+3. The reasoning/analysis for selecting this action (keep it concise!).
+
+Here is an example:
+{
+    "action_name": "xxx",
+    "params": {
+        "duration": 1.0
+    },
+    "analysis": "xxx"
+}
+
+2025-07-22 14:05:32,586 - INFO - Chatting with model: ollama__qwen2.5vl:7b
+2025-07-22 14:05:36,634 - ERROR - Error during task execution: HTTPConnectionPool(host='localhost', port=11435): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000024004BD4FE0>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))

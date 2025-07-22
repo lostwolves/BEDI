@@ -1,0 +1,11 @@
+airsim==1.8.1
+Flask==3.1.1
+numpy==2.3.1
+openai==1.97.0
+opencv_contrib_python==4.10.0.84
+Pillow==11.3.0
+PyAutoGUI==0.9.54
+Requests==2.32.4
+Shapely==2.1.1
+websockets==15.0.1
+yacs==0.1.8
