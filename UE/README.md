@@ -28,5 +28,5 @@ This provides a  foundation for testing the generalization ability and task comp
 ### 🖼️ Example Environment Visualization
 
 <p align="center">
-  <img src="../imgs/ue_env.png" width="90%" alt="Unreal Engine Simulation Environment">
+  <img src="../env.png" width="90%" alt="Unreal Engine Simulation Environment">
 </p>
