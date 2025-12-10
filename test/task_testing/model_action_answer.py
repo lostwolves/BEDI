@@ -205,13 +205,12 @@ def gpt4_chatbot(gpt, question_dict, save_dir):
 
 if __name__ == "__main__":
     
-    # model_name = "gemini-2.5-flash"
-    model_name = "claude-3-5-sonnet-latest"
+    model_name = "gpt-4o"
     cfg=dict(
         model_name=model_name,
         # model_name="gpt-4o",
         temperature=0,
-        top_p=0.9,
+        top_p=0.1,
         max_tokens=1000,
     )
     gpt = GPTS(**cfg)
@@ -227,3 +226,4 @@ if __name__ == "__main__":
     with open(input_file, "r", encoding="utf-8") as f:
         data = json.load(f)
     gpt4_chatbot(gpt, data, answer_save_dir)
+
