@@ -15,6 +15,15 @@ We have collected real UAV imagery to construct a representative real-world test
 
 
 ## Release Notes
+* **[2025/12/10]  🚀 Update: Action-Capability Test Samples & Real-World Dynamic UAV Scenarios**
+  We have uploaded additional **action-capability benchmark samples**, together with **dynamic test scenarios constructed from real UAV video frames**.
+  * 🧾 **Action-Capability Evaluation (Standardized Drone Action Template)**
+    To benchmark action execution, we provide a **standard UAV action template**. The agent is required to **translate natural-language instructions into the template-formatted commands**, enabling the drone system to **directly parse and execute** them. This setting evaluates the agent’s instruction understanding, structured command generation, and action feasibility under a unified interface.
+  * 🎬 **Dynamic Scenario Tasks (Real UAV Frames)**
+    * **Fine-Grained Vehicle Recognition Task**: From a distant aerial viewpoint, the agent must plan the most efficient and shortest flight path to capture critical visual details and identify the fine-grained vehicle model (e.g., Mercedes-Benz or Audi). The system supports corrective feedback (e.g., re-perception/backtracking or ground-level reference photos after misidentification). Performance is quantified by **average perception/decision scores across nodes** and **total execution steps**.
+    * **Dynamic Rider Tracking Task**: The agent must maintain persistent tracking of a continuously moving rider under illumination changes, occlusions, and distractions, adapting its strategy based on evolving visual cues. Performance is measured by **average perception/decision scores across nodes**, reflecting stability, adaptability, and decision consistency.
+    The newly added test dataset is also available at the following link ([https://huggingface.co/datasets/GuoMN/BEDI](https://huggingface.co/datasets/GuoMN/BEDI)), under the `BEDI-1.5` directory. In addition, the corresponding evaluation code has been uploaded to the `test` folder.
+
 - **[2025/07/22]  🚀 Release of Dynamic Virtual Environment & Benchmark Test Platform**We have developed a Dynamic Virtual Environment based on **[Unreal Engine 4.27](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/unreal-engine-4-27-documentation?application_version=4.27)**, integrated with a programmable drone system through **[AirSim](https://github.com/microsoft/AirSim)**. Building upon AirSim's drone control API, we performed further encapsulation and refactoring, designed and implemented a set of core control interfaces, and constructed a Drone Control Server based on these interfaces.Furthermore, we built the web-based frontend interface of the test platform using **[PixelStreaming](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/PixelStreaming/)** technology, allowing users to *quickly evaluate and test the performance of embodied agents* directly through a web browser.
   * 🌐 Dynamic Virtual Environment
     * Built on **Unreal Engine 4.27**
