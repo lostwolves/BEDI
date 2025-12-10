@@ -77,7 +77,7 @@ You can download the **Dynamic Virtual Environment** from [Hugging Face](https:/
 huggingface-cli download --repo-type dataset --resume-download GuoMN/BEDI-UE --local-dir ./UE
 ```
 <p align="center" width="100%">
-  <img src="env.png" width="100%" alt="Dynamic Virtual Environment">
+  <img src="imgs/env.png" width="100%" alt="Dynamic Virtual Environment">
 </p>
 
 ### ⚙️ 4. Configure and Start the Dynamic Virtual Environment
