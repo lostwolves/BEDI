@@ -165,6 +165,18 @@ Once everything is running, open your web browser and access the interface.
 - 📋 **Select a Task**: Choose a task from the dropdown menu and click **"Start Task"**.
 - 💬 **Interact with the Agent**: Input your question in the text box and click **"Send"** to interact.
 
+# Citation
+
+If you find our work useful in your research, please cite our paper:
+
+```
+@article{guo2025bedi,
+  title={Bedi: A comprehensive benchmark for evaluating embodied agents on uavs},
+  author={Guo, Mingning and Wu, Mengwei and He, Jiarun and Li, Shaoxian and Li, Haifeng and Tao, Chao},
+  journal={arXiv preprint arXiv:2505.18229},
+  year={2025}
+}
+```
 ---
 
 🎉 Congratulations! You're all set to use the **BEDI** system. Enjoy exploring and executing tasks in your dynamic virtual environment!
